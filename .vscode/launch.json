@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "name": "cpp - Build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": " ${workspaceFolder}/build/kurento-media-server/server/kurento-media-server",
+            "args": [
+                "--gst-debug=3,Kurento*:4,kms*:4,sdp*:4,webrtc*:4,*rtpendpoint:4,rtp*handler:4,rtpsynchronizer:4,agnosticbin:4",
+                "--conf-file=${workspaceFolder}/build/config/kurento.conf.json",
+                "--modules-config-path=${workspaceFolder}/build/config/kurento",
+                "--modules-path=${workspaceFolder}/build/kms-core/src/server:${workspaceFolder}/build/kms-elements/src/server:${workspaceFolder}/build/kms-filters/src/server",
+                "--gst-plugin-path=${workspaceFolder}/build",
+                "--gst-disable-registry-fork",
+                "--gst-disable-registry-update"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
