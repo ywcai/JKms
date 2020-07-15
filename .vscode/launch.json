@@ -2,6 +2,7 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+                    // "--logs-path=/usr/jdsj/log/",
     "version": "0.2.0",
     "configurations": [        
         {
@@ -12,8 +13,8 @@
             "args": [
                 "--gst-debug=3,Kurento*:4,kms*:4,sdp*:4,webrtc*:4,*rtpendpoint:4,rtp*handler:4,rtpsynchronizer:4,agnosticbin:4",
                 "--conf-file=${workspaceFolder}/build/config/kurento.conf.json",
-                "--modules-config-path=${workspaceFolder}/build/config/kurento",
-                "--modules-path=${workspaceFolder}/build/kms-core/src/server:${workspaceFolder}/build/kms-elements/src/server:${workspaceFolder}/build/kms-filters/src/server",
+                "--modules-config-path=${workspaceFolder}/build/config",
+                "--modules-path=/usr/jdsj/jkms/build:/usr/lib/x86_64-linux-gnu/kurento/modules",
                 "--gst-plugin-path=${workspaceFolder}/build",
                 "--gst-disable-registry-fork",
                 "--gst-disable-registry-update"

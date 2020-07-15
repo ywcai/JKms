@@ -412,6 +412,7 @@ kms_base_rtp_session_link_gst_connection_sink (KmsBaseRtpSession * self,
 {
   GstPad *src, *sink;
 
+GST_WARNING("CREATE A SINK AND SRC !");
   /* RTP */
   src = kms_i_rtp_session_manager_request_rtp_src (self->manager, self, media);
   sink = kms_i_rtp_connection_request_rtp_sink (conn);

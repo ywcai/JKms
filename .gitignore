@@ -9,6 +9,9 @@ bin/**
 vscode-root
 vscode-root/
 vscode-root/**
+.vscode-root
+.vscode-root/**
+.vscode-root/
 # IDE files -- QtCreator
 CMakeLists.txt.user
 

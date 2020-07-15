@@ -235,6 +235,8 @@ static gboolean
 kms_dummy_sink_request_new_sink_pad (KmsElement * obj, KmsElementPadType type,
     const gchar * description, const gchar * name)
 {
+
+    GST_WARNING(" ============ kms_dummy_sink_request_new_sink_pad start========");
   KmsDummySink *self = KMS_DUMMY_SINK (obj);
   KmsDummySinkElement *dummy;
   GstElement *sink;
@@ -266,6 +268,7 @@ kms_dummy_sink_request_new_sink_pad (KmsElement * obj, KmsElementPadType type,
   gst_element_sync_state_with_parent (sink);
 
   sinkpad = gst_element_get_static_pad (sink, "sink");
+  GST_WARNING(" ============ sinkpad = gst_element_get_static_pad (sink, sink)========");
   kms_element_connect_sink_target_full (KMS_ELEMENT (self), sinkpad, type,
       description, NULL, NULL);
   g_object_unref (sinkpad);

@@ -891,6 +891,9 @@ kms_base_sdp_endpoint_finalize (GObject * object)
 static void
 kms_base_sdp_endpoint_class_init (KmsBaseSdpEndpointClass * klass)
 {
+
+GST_WARNING("===========kms_base_sdp_endpoint_class_init=============");
+
   GstElementClass *gstelement_class;
   GObjectClass *gobject_class;
 
@@ -1049,6 +1052,7 @@ kms_base_sdp_endpoint_class_init (KmsBaseSdpEndpointClass * klass)
 static void
 kms_base_sdp_endpoint_init (KmsBaseSdpEndpoint * self)
 {
+GST_WARNING("===========kms_base_sdp_endpoint_init=============");
   self->priv = KMS_BASE_SDP_ENDPOINT_GET_PRIVATE (self);
 
   self->priv->multisession = DEFAULT_MULTISESSION;

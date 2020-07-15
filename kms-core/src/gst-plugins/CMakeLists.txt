@@ -21,11 +21,7 @@ set(KMS_CORE_SOURCES
   kmsdummyrtp.c kmsdummyrtp.h
   kmsdummyuri.c kmsdummyuri.h
 )
-
-
-
-SET(LIBRARY_OUTPUT_PATH   /usr/lib/x86_64-linux-gnu/gstreamer-1.5)   
-
+ 
 add_library(${LIBRARY_NAME}plugins MODULE ${KMS_CORE_SOURCES})
 if(SANITIZERS_ENABLED)
   add_sanitizers(${LIBRARY_NAME}plugins)

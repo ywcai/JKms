@@ -652,7 +652,6 @@ connect_sink_func (const gchar * key, KmsSinkPadData * data,
     /* Pad was not previously removed */
     return;
   }
-
   sinkpad = kms_element_connect_sink_target_full (KMS_ELEMENT (self),
       data->sink_target, data->type, data->description, connect_pad_signals_cb,
       self);
@@ -694,7 +693,7 @@ kms_recorder_generate_pads (KmsRecorderEndpoint * self)
   if (!self->priv->generate_pads) {
     return;
   }
-
+/**********Therr  is  init the record sink pad  ***************/
   g_hash_table_foreach (self->priv->sink_pad_data, (GHFunc) connect_sink_func,
       self);
 
@@ -840,9 +839,7 @@ kms_recorder_endpoint_started (KmsUriEndpoint * obj, GError ** error)
   }
 
   was_paused = state == KMS_URI_ENDPOINT_STATE_PAUSE;
-
   kms_recorder_endpoint_create_parent_directories (self);
-
   if (was_paused) {
     kms_element_for_each_sink_pad (GST_ELEMENT (self),
         drop_until_key_frame_cb, NULL);

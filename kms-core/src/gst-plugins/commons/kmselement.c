@@ -867,6 +867,7 @@ kms_element_sink_query_default (KmsElement * self, GstPad * pad,
     GstQuery * query)
 {
   /* Invoke default pad query function */
+
   return gst_pad_query_default (pad, GST_OBJECT (self), query);
 }
 
@@ -982,7 +983,7 @@ kms_element_connect_sink_target_full (KmsElement * self, GstPad * target,
   GstPad *pad;
   gchar *pad_name;
   GstPadTemplate *templ;
-
+  GST_WARNING_OBJECT(self," =============>>>>>>>>>>>>>>>>>>  kms_element_sink_query_default  ");
   templ = gst_static_pad_template_get (&sink_factory);
 
   pad_name = get_sink_pad_name (type, description);
@@ -1069,7 +1070,6 @@ kms_element_connect_sink_target_full_by_media_type (KmsElement * self,
           "Invalid media type while requesting output element");
       return NULL;
   }
-
   return kms_element_connect_sink_target_full (self, target, pad_type,
       description, func, user_data);
 }
@@ -1779,6 +1779,8 @@ kms_element_create_output_element_default (KmsElement * self)
 static void
 kms_element_class_init (KmsElementClass * klass)
 {
+
+  GST_WARNING("===================kms_element_class_init =============");
   GstElementClass *gstelement_class;
   GObjectClass *gobject_class;
 
@@ -1800,6 +1802,7 @@ kms_element_class_init (KmsElementClass * klass)
       gst_static_pad_template_get (&video_src_factory));
   gst_element_class_add_pad_template (gstelement_class,
       gst_static_pad_template_get (&data_src_factory));
+      
   gst_element_class_add_pad_template (gstelement_class,
       gst_static_pad_template_get (&sink_factory));
 
@@ -1918,6 +1921,8 @@ kms_element_class_init (KmsElementClass * klass)
 static void
 kms_element_init (KmsElement * element)
 {
+
+  GST_WARNING("===================kms_element_init =============");
   g_rec_mutex_init (&element->mutex);
 
   element->priv = KMS_ELEMENT_GET_PRIVATE (element);

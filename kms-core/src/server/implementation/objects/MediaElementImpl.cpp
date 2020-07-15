@@ -473,11 +473,11 @@ MediaElementImpl::mediaFlowOutStateChange (gboolean isFlowing, gchar *padName,
 {
   std::shared_ptr<MediaFlowState> state;
   if (isFlowing) {
-    GST_WARNING_OBJECT (element, "MediaFlowOutStateChange: FLOWING"
+    GST_DEBUG_OBJECT (element, "MediaFlowOutStateChange: FLOWING"
         ", pad: '%s', type: '%s'", padName, padTypeToString (type).c_str ());
     state = std::make_shared <MediaFlowState> (MediaFlowState::FLOWING);
   } else {
-    GST_WARNING_OBJECT (element, "MediaFlowOutStateChange: NOT FLOWING"
+    GST_DEBUG_OBJECT (element, "MediaFlowOutStateChange: NOT FLOWING"
         ", pad: '%s', type: '%s'", padName, padTypeToString (type).c_str ());
     state = std::make_shared <MediaFlowState> (MediaFlowState::NOT_FLOWING);
   }
@@ -508,11 +508,11 @@ MediaElementImpl::mediaFlowInStateChange (gboolean isFlowing, gchar *padName,
 {
   std::shared_ptr<MediaFlowState> state;
   if (isFlowing) {
-    GST_WARNING_OBJECT (element, "MediaFlowInStateChange: FLOWING"
+    GST_DEBUG_OBJECT (element, "MediaFlowInStateChange: FLOWING"
         ", pad: '%s', type: '%s'", padName, padTypeToString (type).c_str ());
     state = std::make_shared <MediaFlowState> (MediaFlowState::FLOWING);
   } else {
-    GST_WARNING_OBJECT (element, "MediaFlowInStateChange: NOT FLOWING"
+    GST_DEBUG_OBJECT (element, "MediaFlowInStateChange: NOT FLOWING"
         ", pad: '%s', type: '%s'", padName, padTypeToString (type).c_str ());
     state = std::make_shared <MediaFlowState> (MediaFlowState::NOT_FLOWING);
   }
@@ -541,7 +541,6 @@ void
 MediaElementImpl::onMediaTranscodingStateChange (gboolean isTranscoding,
     gchar *binName, KmsElementPadType type)
 {
-
   std::shared_ptr<MediaTranscodingState> state;
   if (isTranscoding) {
     GST_DEBUG_OBJECT (element, "MediaTranscodingStateChange: TRANSCODING"
@@ -586,7 +585,6 @@ MediaElementImpl::postConstructor ()
 {
   MediaObjectImpl::postConstructor ();
 
-//REGISTE THE HANDLER TO THE C LAYER 
   mediaFlowOutHandler = register_signal_handler (G_OBJECT (element),
                         "flow-out-media",
                         std::function <void (GstElement *, gboolean, gchar *, KmsElementPadType) >
@@ -619,9 +617,8 @@ MediaElementImpl::MediaElementImpl (const boost::property_tree::ptree &config,
   std::shared_ptr<MediaPipelineImpl> pipe;
 
   pipe = std::dynamic_pointer_cast<MediaPipelineImpl> (getMediaPipeline() );
- 
-  element = gst_element_factory_make(factoryName.c_str(), nullptr);
 
+  element = gst_element_factory_make(factoryName.c_str(), nullptr);
 
   if (element == nullptr) {
     throw KurentoException (MEDIA_OBJECT_NOT_AVAILABLE,
@@ -629,15 +626,14 @@ MediaElementImpl::MediaElementImpl (const boost::property_tree::ptree &config,
   }
 
   bus = gst_pipeline_get_bus (GST_PIPELINE (pipe->getPipeline () ) );
- 
   handlerId = g_signal_connect (bus, "message",
                                 G_CALLBACK (processBusMessage), this);
-//check the pad added event ;
+
+
   padAddedHandlerId = g_signal_connect (element, "pad_added",
                                         G_CALLBACK (_media_element_pad_added), this);
 
   g_object_ref (element);
-  //the global pipeline ;
   pipe->addElement (element);
 
   //read default configuration for output bitrate
@@ -1015,16 +1011,15 @@ MediaElementImpl::performConnection (std::shared_ptr
     ret = gst_pad_link_full (src, sink, GST_PAD_LINK_CHECK_NOTHING);
 
     if (ret != GST_PAD_LINK_OK) {
-      GST_INFO ("Cannot link pads: %" GST_PTR_FORMAT " and %" GST_PTR_FORMAT
+      GST_WARNING ("Cannot link pads: %" GST_PTR_FORMAT " and %" GST_PTR_FORMAT
                    " reason: %s", src, sink, gst_pad_link_get_name (ret) );
     } else {
-      GST_INFO ("SUCCESS ===>>>  link pads: %" GST_PTR_FORMAT " and %" GST_PTR_FORMAT
-                   " reason: %s", src, sink, gst_pad_link_get_name (ret) );
+      GST_LOG ("Link done");
     }
 
     g_object_unref (sink);
   } else {
-    GST_WARNING("Still waiting for sink pad %s:%s",
+    GST_LOG ("Still waiting for sink pad %s:%s",
              data->getSink()->getName().c_str(),
              data->getSinkPadName ().c_str() );
   }

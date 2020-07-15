@@ -129,6 +129,7 @@ BaseRtpEndpointImpl::~BaseRtpEndpointImpl ()
 void
 BaseRtpEndpointImpl::updateMediaState (guint new_state)
 {
+ 
   std::unique_lock<std::recursive_mutex> lock (mutex);
   std::shared_ptr<MediaState> old_state = current_media_state;
 
@@ -147,7 +148,9 @@ BaseRtpEndpointImpl::updateMediaState (guint new_state)
     GST_ERROR ("Invalid media state %u", new_state);
     return;
   }
+    GST_WARNING_OBJECT (element, "MediaState changed to '%s' ",  current_media_state->getString().c_str());
 
+    
   if (old_state->getValue() != current_media_state->getValue() ) {
     GST_DEBUG_OBJECT (element, "MediaState changed to '%s'",
         current_media_state->getString().c_str());
@@ -184,7 +187,6 @@ BaseRtpEndpointImpl::updateConnectionState (gchar *sessId, guint new_state)
     GST_ERROR ("Invalid connection state %u", new_state);
     return;
   }
-
   if (old_state->getValue() != current_conn_state->getValue() ) {
     GST_DEBUG_OBJECT (element, "ConnectionState changed to '%s'",
         current_conn_state->getString().c_str());
@@ -664,6 +666,7 @@ BaseRtpEndpointImpl::fillStatsReport (std::map
 
 BaseRtpEndpointImpl::StaticConstructor BaseRtpEndpointImpl::staticConstructor;
 
+//static construcotr , only run once
 BaseRtpEndpointImpl::StaticConstructor::StaticConstructor()
 {
   GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,

@@ -50,6 +50,7 @@ RtpEndpointImpl::RtpEndpointImpl (const boost::property_tree::ptree &conf,
         std::dynamic_pointer_cast<MediaObjectImpl> (mediaPipeline),
         FACTORY_NAME, useIpv6)
 {
+  GST_WARNING("==============new RtpEndpointImpl()==================");
   if (!crypto->isSetCrypto ()) {
     return;
   }
@@ -122,7 +123,7 @@ void
 RtpEndpointImpl::postConstructor ()
 {
   BaseRtpEndpointImpl::postConstructor ();
- 
+  GST_WARNING("==============postConstructor()==================");
   handlerOnKeySoftLimit =
       register_signal_handler (G_OBJECT (element), "key-soft-limit",
           std::function<void (GstElement *, gchar *)> (std::bind (
