@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 include(GLibHelpers)
-SET(LIBRARY_OUTPUT_PATH   /usr/lib/x86_64-linux-gnu/gstreamer-1.5)   
+# SET(LIBRARY_OUTPUT_PATH   /usr/lib/x86_64-linux-gnu/gstreamer-1.5)   
 
 add_subdirectory(rtcpdemux)
 add_subdirectory(rtpendpoint)

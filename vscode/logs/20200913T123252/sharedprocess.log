@@ -1,0 +1,5 @@
+[2020-09-13 12:32:56.289] [sharedprocess] [info] main {"machineId":"28af93fd147356b0371f114da2a6b7ba997d3b4bddbba5820b5a8ed4a5117c68","windowId":2}
+[2020-09-13 12:32:56.338] [sharedprocess] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/usr/jdsj/JKms/vscode/User/snippets'
+[2020-09-13 12:33:36.310] [sharedprocess] [info] Starting to clean up unused language packs.
+[2020-09-13 12:33:51.961] [sharedprocess] [error] Error: XHR failed
+    at XMLHttpRequest.o.onerror (file:///usr/share/code/resources/app/out/vs/code/electron-browser/sharedProcess/sharedProcessMain.js:186:302)
